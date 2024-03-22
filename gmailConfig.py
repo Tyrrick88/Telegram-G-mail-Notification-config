@@ -1,10 +1,11 @@
-import smtplib
+import smtplib, ssl
 
-#  Gmail account details to send the email from.
-sender_email = 'your-gmail@gmail.com'
-server = smtplib.SMTP('smtp.gmail.com')
-server.starttls()
-server.login("<EMAIL>", "<PASSWORD>")
+port = 465  # For SSL
+password = input("Type your password and press enter: ")
 
-server.sendmail("<EMAIL>", "<EMAIL>")
-server.quit()
+# Create a secure SSL context
+context = ssl.create_default_context()
+
+with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+    server.login("tyrrickndungu@gmail.com", password)
+    # TODO: Send email here
